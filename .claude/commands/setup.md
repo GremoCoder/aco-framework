@@ -55,7 +55,10 @@ All notable changes to this project will be documented here.
 **`.gitignore`** — append these lines if not already present:
 ```
 .claude/settings.local.json
-.claude/**//.tmp/
+.claude/**/.tmp/
+.env
+credentials.json
+token.json
 ```
 
 **`.gitattributes`** — create with:
@@ -359,7 +362,7 @@ Also create these files and subdirectories:
 
 ---
 
-## Requirements
+## Layer 1 — Requirements (What)
 
 Describe what this directive must accomplish. List functional and non-functional
 requirements, acceptance criteria, or goals.
@@ -370,10 +373,11 @@ requirements, acceptance criteria, or goals.
 
 ---
 
-## Orchestration
+## Layer 2 — Orchestration (Decide)
 
-Describe how this directive is structured and how its parts work together.
-Include any sequencing, dependencies between steps, or decision points.
+Claude's decision-making guide for this directive. Describes how the parts work
+together, the sequencing of steps, dependencies, and how to handle edge cases.
+Claude reads this section to understand what to do and in what order.
 
 ### Steps
 
@@ -386,36 +390,70 @@ Include any sequencing, dependencies between steps, or decision points.
 - **Requires:** _list other directives or resources this one depends on_
 - **Produces:** _list outputs consumed by other directives or systems_
 
+### Edge Cases
+
+_Document known failure modes, API limits, timing constraints, and how to handle them._
+
 ---
 
-## Execution
+## Layer 3 — Execution (Do)
 
-Document how to run or invoke this directive. Include commands, scripts,
-entry points, or manual steps.
+Deterministic scripts that perform the actual work. Claude checks this section
+before writing any new code — existing scripts must be reused and improved, not duplicated.
 
-```bash
-# Example: run the main script for this directive
-# .claude/$ARGUMENTS-directive/scripts/run.sh
-```
+### Environment Variables
+
+List all required `.env` variables this directive depends on:
+
+| Variable | Purpose |
+|---|---|
+| _VAR_NAME_ | _what it is used for_ |
 
 ### Scripts
 
-| Script | Purpose |
-|---|---|
-| _script-name.sh_ | _what it does_ |
+| Script | Purpose | Status |
+|---|---|---|
+| _script-name.sh_ | _what it does_ | 🔴 Not created |
+
+```bash
+# Entry point to run this directive
+# .claude/$ARGUMENTS-directive/scripts/run.sh
+```
+
+---
+
+## Deliverables
+
+All outputs produced by this directive must be listed here with their destination.
+Intermediates go in `.tmp/` and are never committed. Deliverables are final outputs.
+
+| Deliverable | Type | Destination | Notes |
+|---|---|---|---|
+| _name_ | Local / Cloud / Both | _path or service URL_ | _format, access details_ |
+
+> **Rule:** Local files are for processing only. If a deliverable lives in a cloud
+> service, document the exact location so any session can find it without asking.
 
 ---
 
 ## Context
 
-Capture running context, decisions made, and evolving understanding of this directive.
-Update this section as work progresses.
+Running context, decisions made, and evolving understanding of this directive.
+Updated as work progresses. Never overwritten without explicit user instruction.
 
 ### Decisions Log
 
 | Date | Decision | Reason |
 |---|---|---|
 | _YYYY-MM-DD_ | _decision_ | _why_ |
+
+### Self-Anneal Log
+
+Record of every break-fix cycle. Each entry makes this directive stronger.
+
+| Date | What broke | Root cause | Fix applied | Script updated? |
+|---|---|---|---|---|
+| _YYYY-MM-DD_ | _description_ | _cause_ | _what was changed_ | Yes / No |
 
 ### Open Questions
 
@@ -545,9 +583,13 @@ Reports are written here as the directive produces outputs.
 
 ## Purpose
 
-Automation scripts scoped exclusively to the $ARGUMENTS directive.
-Contains executable scripts used to run, test, or maintain this directive's
-workflows. Referenced by the `directive.md` Execution section.
+Deterministic execution tools scoped to the $ARGUMENTS directive (Layer 3).
+Scripts here do the actual work — API calls, data processing, file operations.
+Claude does not do this work directly; it orchestrates these scripts.
+
+**Always check this directory before writing new code.** Reuse and improve
+existing scripts rather than duplicating logic. Register every script in
+`directive.md` under the Execution > Scripts table.
 
 ## Contents
 
@@ -556,16 +598,21 @@ Scripts are added here as the directive is built out.
 
 | File Pattern | Purpose |
 |---|---|
-| `run.sh` | Main entry point to execute the directive workflow |
-| `setup.sh` | One-time setup or dependency installation script |
-| `validate.sh` | Pre-run validation checks |
-| `cleanup.sh` | Post-run cleanup of temp files or resources |
+| `run.sh` | Main entry point — orchestrates the full directive workflow |
+| `setup.sh` | One-time setup or dependency installation |
+| `validate.sh` | Pre-run checks — inputs, credentials, environment |
+| `cleanup.sh` | Post-run cleanup of `.tmp/` and ephemeral resources |
+| `{action}.py` | Deterministic Python script for a specific operation |
 
 ## Guidelines
 
 - Make all scripts executable (`chmod +x`).
-- Include a usage comment at the top of every script.
-- For scripts shared across directives, place them in a shared utility location.
+- Include a usage comment block at the top of every script.
+- Scripts must be reliable, testable, and well-commented.
+- When a script is fixed via self-annealing, update both the script and the
+  Self-Anneal Log in `directive.md`.
+- Environment variables and API keys come from `.env` — never hardcoded.
+- For scripts shared across directives, place them in `.claude/common/`.
 ```
 
 #### `directives/$ARGUMENTS.md`
@@ -588,6 +635,15 @@ _Who is responsible for this directive? (team, person, or role)_
 ## Scope
 
 _What is in scope for this directive? What is explicitly out of scope?_
+
+## Deliverables
+
+_Where does the output of this directive live? Be explicit — local path, cloud service,
+or both. This must be defined before work begins._
+
+| Deliverable | Destination | Format | Notes |
+|---|---|---|---|
+| _name_ | _local path or cloud service URL_ | _file type / format_ | _access or sharing details_ |
 
 ## Related Directives
 

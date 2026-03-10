@@ -75,7 +75,8 @@ STEP 3 — RUN THE SETUP COMMAND
 
   Claude will scaffold the full ACO Framework directory skeleton, including:
 
-    ✔ Root files         README.md, CHANGELOG.md, .gitignore, .gitattributes
+    ✔ Root files         README.md, CHANGELOG.md, .gitignore (with .env, credentials),
+                         .gitattributes
     ✔ .claude/           Workspace with session-context.md and settings files
     ✔ .claude/commands/  Slash commands directory
     ✔ .claude/common/    Shared directories — analysis/, knowledge/, reports/ (all empty)
