@@ -209,6 +209,9 @@ Claude should read relevant files here before making decisions or writing code.
 
 ## Contents
 
+This directory is intentionally empty at scaffold time.
+Add `.md` files here as your project knowledge grows. Common files to create:
+
 | File | Purpose |
 |---|---|
 | `conventions.md` | Coding standards, naming rules, patterns to follow |
@@ -221,162 +224,12 @@ Claude should read relevant files here before making decisions or writing code.
 
 ## Guidelines
 
-- Keep these files concise and accurate — they are read on every session.
+- Keep files concise and accurate — they are read on every session.
+- Only create a file when you have real content to put in it.
 - Update `change-log.md` whenever a significant decision is made.
 ```
 
-#### `.claude/common/knowledge/conventions.md`
-```markdown
-# Conventions
-
-> Coding standards and patterns for this project.
-
-## Naming
-
-_Define naming conventions for files, variables, functions, etc._
-
-## Structure
-
-_Define how code should be organized._
-
-## Patterns
-
-_List preferred design patterns or approaches._
-
-## Anti-Patterns
-
-_List things to avoid._
-```
-
-#### `.claude/common/knowledge/dependencies.md`
-```markdown
-# Dependencies
-
-> Key libraries, tools, and version constraints.
-
-## Runtime Dependencies
-
-| Package | Version | Purpose |
-|---|---|---|
-| _name_ | _version_ | _why_ |
-
-## Dev Dependencies
-
-| Package | Version | Purpose |
-|---|---|---|
-| _name_ | _version_ | _why_ |
-
-## Notes
-
-_Any known conflicts, pinned versions, or upgrade blockers._
-```
-
-#### `.claude/common/knowledge/environment-overview.md`
-```markdown
-# Environment Overview
-
-> Infrastructure, environments, and deployment targets.
-
-## Environments
-
-| Name | Purpose | URL / Access |
-|---|---|---|
-| Development | Local dev | localhost |
-| Staging | Pre-prod testing | _TBD_ |
-| Production | Live | _TBD_ |
-
-## Configuration
-
-_Describe how environment variables are managed (e.g. .env files, secrets manager)._
-
-## Deployment
-
-_Describe how the project is deployed._
-```
-
-#### `.claude/common/knowledge/networking.md`
-```markdown
-# Networking
-
-> APIs, endpoints, and network topology.
-
-## Internal APIs
-
-| Endpoint | Method | Purpose |
-|---|---|---|
-| _/path_ | GET/POST | _description_ |
-
-## External APIs / Services
-
-| Service | Purpose | Docs |
-|---|---|---|
-| _name_ | _purpose_ | _link_ |
-
-## Notes
-
-_Any firewall rules, VPN requirements, or access restrictions._
-```
-
-#### `.claude/common/knowledge/resources.md`
-```markdown
-# Resources
-
-> Links to external documentation, wikis, dashboards, and tools.
-
-## Documentation
-
-- [Project Wiki](_link_)
-- [API Docs](_link_)
-
-## Dashboards
-
-- [Monitoring](_link_)
-- [CI/CD](_link_)
-
-## References
-
-- _Add any other useful external links here._
-```
-
-#### `.claude/common/knowledge/security.md`
-```markdown
-# Security
-
-> Security policies, secrets handling, and access rules.
-
-## Secrets Management
-
-_Describe how secrets are stored and accessed (e.g. never in code, use X vault)._
-
-## Access Control
-
-_Describe roles, permissions, or IAM policies relevant to development._
-
-## Known Risks / Policies
-
-_List any security constraints Claude should be aware of._
-```
-
-#### `.claude/common/knowledge/change-log.md`
-```markdown
-# Architectural Change Log
-
-> Record of significant architectural or process decisions.
-
-## Format
-
-Each entry should include: date, decision made, reason, and impact.
-
----
-
-## Entries
-
-### YYYY-MM-DD — Initial scaffold
-
-- **Decision:** ACO Framework skeleton created via `/setup`
-- **Reason:** Establish consistent project structure
-- **Impact:** All future work follows this layout
-```
+#### `.claude/common/knowledge/` — create directory (empty, no files needed yet)
 
 ---
 
@@ -582,8 +435,8 @@ Skipped (already existed):
   - [list of files/directories skipped]
 
 Next steps:
-  1. Fill in .claude/common/knowledge/conventions.md with your project's coding standards.
-  2. Update .claude/common/knowledge/environment-overview.md with your environments.
-  3. Edit README.md with your project description.
-  4. Run /setup <name> to add your first directive.
+  1. Edit README.md with your project description.
+  2. Create knowledge files in .claude/common/knowledge/ as your project grows
+     (e.g. conventions.md, environment-overview.md, dependencies.md).
+  3. Run /setup <n> to add your first directive.
 ```

@@ -78,8 +78,8 @@ STEP 3 — RUN THE SETUP COMMAND
     ✔ Root files         README.md, CHANGELOG.md, .gitignore, .gitattributes
     ✔ .claude/           Workspace with session-context.md and settings files
     ✔ .claude/commands/  Slash commands directory
-    ✔ .claude/common/    Shared knowledge files (conventions, dependencies, etc.)
-    ✔ directives/        High-level directive definitions
+    ✔ .claude/common/    Shared directories — analysis/, knowledge/, reports/ (all empty)
+    ✔ directives/        Directive definitions directory (empty until /setup <n> is run)
 
   All existing files are left untouched — /setup skips anything already present.
 
@@ -126,13 +126,12 @@ STEP 5 — FILL IN YOUR PROJECT DETAILS
   1. Edit README.md
      Add your project name and description.
 
-  2. Edit .claude/common/knowledge/conventions.md
-     Add your coding standards, naming rules, and patterns.
+  2. Populate .claude/common/knowledge/
+     This directory starts empty. Create .md files here as your project knowledge
+     grows — e.g. conventions.md, dependencies.md, environment-overview.md.
+     Claude reads these files before making decisions, so add content here early.
 
-  3. Edit .claude/common/knowledge/environment-overview.md
-     Add your dev, staging, and production environment details.
-
-  4. Edit .claude/session-context.md
+  3. Edit .claude/session-context.md
      Add any carry-over notes at the start of important sessions.
 
 

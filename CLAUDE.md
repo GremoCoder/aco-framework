@@ -37,14 +37,7 @@ project-root/
 │   ├── common/           ← Shared knowledge across all directives
 │   │   │   directory.md
 │   │   ├── analysis/     ← Analytical outputs & scratch work
-│   │   ├── knowledge/    ← Living documentation files
-│   │   │       change-log.md
-│   │   │       conventions.md
-│   │   │       dependencies.md
-│   │   │       environment-overview.md
-│   │   │       networking.md
-│   │   │       resources.md
-│   │   │       security.md
+│   │   ├── knowledge/    ← Living documentation files (populated as needed)
 │   │   └── reports/      ← Generated reports output
 │   │
 │   ├── {name}-directive/ ← One per feature domain or workflow
@@ -72,7 +65,7 @@ project-root/
 - **`.claude/{name}-directive/directive.md`** is the central intelligence file for the directive workspace. It holds requirements, orchestration logic, execution steps, and running context. Always read it before working on a directive.
 - **`directory.md`** files are mandatory in every directory. They explain the purpose of that directory and its contents. Always keep them updated.
 - **`session-context.md`** is used to persist important context between sessions. Update it when significant decisions are made.
-- **`common/knowledge/`** files are the source of truth for project-wide facts. Reference them before making assumptions.
+- **`common/knowledge/`** files are the source of truth for project-wide facts. The directory starts empty — add files here as your project knowledge grows. Reference them before making assumptions.
 - **Never delete** `directory.md` files — they are Claude's map of the project.
 
 ---
@@ -92,7 +85,7 @@ project-root/
 
 1. Read this file (done automatically).
 2. Check `.claude/session-context.md` for carry-over notes from prior sessions.
-3. Review `.claude/common/knowledge/conventions.md` before writing any code.
+3. Review `.claude/common/knowledge/` files before writing any code — check what knowledge files exist and read any that are relevant.
 4. If working within a directive, read its `directive.md` before taking any action.
 5. If `directory.md` is missing from any directory, create it before proceeding.
 
