@@ -44,7 +44,6 @@ project-root/
 │   │           directory.md
 │   │
 │   ├── {name}-directive/ ← One per feature domain or workflow
-│   │   │   directive.md  ← Central intelligence: requirements, orchestration, context
 │   │   │   directory.md
 │   │   ├── .tmp/         ← Ephemeral working files
 │   │   │       directory.md
@@ -59,9 +58,9 @@ project-root/
 │   │
 │   └── ...               ← Additional directives as needed
 │
-└── directives/           ← Directive definition files — one per directive
+└── directives/           ← Single source of truth for all directive files
         directory.md
-        {name}.md         ← e.g. billing.md, auth.md — created by /setup {name}
+        {name}.md         ← e.g. billing.md — the complete directive file (spec + intelligence)
 ```
 
 ---
@@ -69,9 +68,9 @@ project-root/
 ## Key Conventions
 
 - **Directives** are the core unit of work. Each directive lives under `.claude/{name}-directive/`. They are protected — never overwrite without explicit user instruction.
-- **`directives/{name}.md`** is the directive definition file. Human-readable specification — purpose, scope, ownership, and deliverable destinations. Created automatically by `/setup {name}`.
-- **`.claude/{name}-directive/directive.md`** is the central intelligence file. Holds requirements, orchestration logic, execution steps, deliverables, and the self-anneal log. Always read it before working on a directive.
-- **`scripts/`** inside each directive holds deterministic execution tools. Check here before writing new code. Scripts handle API calls, data processing, and file operations — Claude handles decisions.
+- **`directives/{name}.md`** is the single directive file. It is the complete source of truth for that directive — human-readable specification (purpose, scope, ownership, deliverables) AND operational intelligence (requirements, orchestration, execution steps, self-anneal log). Named after the directive itself — e.g. `billing.md` for the billing directive. One file, one location. Created automatically by `/setup {name}`.
+- **`.claude/{name}-directive/`** is the operational workspace for the directive. It contains the subdirectories (`scripts/`, `logs/`, `reports/`, `references/`, `.tmp/`) and a `directory.md`. There is no duplicate of the directive file here — the single source of truth lives in `directives/`.
+- **`scripts/`** inside each directive workspace holds deterministic execution tools. Check here before writing new code. Scripts handle API calls, data processing, and file operations — Claude handles decisions.
 - **`directory.md`** files are mandatory in **every** directory without exception — including leaf directories. They explain purpose, expected contents, and usage guidelines. If one is missing, create it before proceeding.
 - **`session-context.md`** persists context between sessions. Updated automatically by `/analyze`.
 - **`common/knowledge/`** is the source of truth for project-wide facts. Starts empty — populate as the project grows.
@@ -85,7 +84,7 @@ Every directive in the ACO Framework operates across three layers. Understanding
 
 | Layer | Name | What it means |
 |---|---|---|
-| **Layer 1** | Directive | The *what*. SOPs written in Markdown. Lives in `directives/` and `directive.md`. Defines goals, inputs, scripts to use, outputs, edge cases, and deliverable destinations. |
+| **Layer 1** | Directive | The *what*. SOPs written in Markdown. `directives/{name}.md` defines goals, inputs, scripts to use, outputs, edge cases, and deliverable destinations. |
 | **Layer 2** | Orchestration | The *decide*. This is Claude's role. Read directives, call scripts in the right order, handle errors, ask for clarification, update directives with learnings. Claude is the intelligent glue between intent and execution. |
 | **Layer 3** | Execution | The *do*. Deterministic scripts in `scripts/`. Handle API calls, data processing, file operations. Reliable, testable, fast. |
 
@@ -162,7 +161,7 @@ This loop is what separates a brittle one-time automation from a reliable, impro
 1. Read this file (done automatically).
 2. Check `.claude/session-context.md` for carry-over notes from prior sessions.
 3. Review `.claude/common/knowledge/` files — check what exists and read what is relevant.
-4. If working within a directive, read its `directive.md` before taking any action. Pay attention to the Orchestration, Execution, and Deliverables sections.
+4. If working within a directive, read its file in `directives/{name}.md` before taking any action. Pay attention to the Orchestration, Execution, and Deliverables sections.
 5. Check the directive's `scripts/` before writing any new code — reuse existing scripts.
 6. If `directory.md` is missing from any directory, create it before proceeding.
 

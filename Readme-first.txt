@@ -103,12 +103,10 @@ STEP 4 — ADD YOUR FIRST DIRECTIVE (OPTIONAL)
                    directives/
                    └── {name}.md         (human-readable spec — purpose, scope, owner)
 
-  2. A full workspace under .claude/:
+  2. A workspace under .claude/ (no directive file inside — it lives in directives/):
 
                    .claude/{name}-directive/
-                   ├── directive.md      (central intelligence — requirements,
-                   │                      orchestration, execution, context)
-                   ├── directory.md      (purpose & contents — pre-filled)
+                   ├── directory.md      (workspace map — references directives/{name}.md)
                    ├── .tmp/
                    │   └── directory.md  (ephemeral working files)
                    ├── logs/
@@ -118,7 +116,7 @@ STEP 4 — ADD YOUR FIRST DIRECTIVE (OPTIONAL)
                    ├── reports/
                    │   └── directory.md  (produced outputs & deliverables)
                    └── scripts/
-                       └── directory.md  (automation scripts)
+                       └── directory.md  (deterministic execution tools)
 
   You can run /setup <n> as many times as needed for different directives.
 
@@ -163,9 +161,10 @@ HOW IT WORKS — QUICK REFERENCE
                               presents suggestions and waits for your approval
                               before making any changes.
 
-  directive.md (per directive) Central intelligence for that directive. Holds
-                              requirements, orchestration, execution steps, and
-                              running context. Read before working on a directive.
+  directives/{name}.md       The single directive file. Contains the complete
+                              spec, requirements, orchestration, execution steps,
+                              deliverables, and self-anneal log. One file, one
+                              location. Read it before working on a directive.
 
   directory.md (everywhere)   Explains each folder's purpose to Claude.
                               Always keep these updated.

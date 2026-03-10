@@ -311,9 +311,10 @@ and is created automatically when you run `/setup {name}`.
 
 ## Guidelines
 
-- One definition file per directive — named `{name}.md` (e.g. `billing.md` for the billing directive).
-- Keep definitions focused: purpose, scope, owner, and links to related resources.
-- Do not store operational content here — that belongs in `.claude/{name}-directive/directive.md`.
+- One file per directive — named `{name}.md` (e.g. `billing.md` for the billing directive).
+- This is the single source of truth: spec, requirements, orchestration, execution, deliverables, and self-anneal log — all in one file.
+- The corresponding workspace lives at `.claude/{name}-directive/` but does NOT contain a copy of this file.
+- Always edit the file here in `directives/`. Never duplicate it.
 ```
 
 ---
@@ -332,16 +333,26 @@ Create the following structure under `.claude/$ARGUMENTS-directive/`:
 
 > Replace this with a brief description of what this directive is responsible for.
 
+## Directive File
+
+The directive file for this workspace lives at:
+
+```
+directives/$ARGUMENTS.md
+```
+
+This is the single source of truth — read it before taking any action in this workspace.
+Do not create a copy of it here.
+
 ## Contents
 
 | Name | Type | Purpose |
 |---|---|---|
-| `directive.md` | file | Central intelligence — requirements, orchestration, execution, and context |
 | `.tmp/` | directory | Ephemeral working files — not committed |
 | `logs/` | directory | Execution logs and audit trail |
 | `references/` | directory | External specs, docs, and links relevant to this directive |
 | `reports/` | directory | Produced outputs — generated reports, summaries, and deliverables |
-| `scripts/` | directory | Automation scripts scoped to this directive |
+| `scripts/` | directory | Deterministic execution tools (Layer 3) |
 
 ## Workflow
 
@@ -352,11 +363,11 @@ _Describe how this directive is typically used._
 _List any other directives this one depends on or interacts with._
 ```
 
-Also create these files and subdirectories:
+Create the directive file at:
 
-#### `.claude/$ARGUMENTS-directive/directive.md`
+#### `directives/$ARGUMENTS.md`
 ```markdown
-# Directive: $ARGUMENTS
+# $ARGUMENTS Directive
 
 > One-sentence summary of what this directive does and why it exists.
 
@@ -589,7 +600,7 @@ Claude does not do this work directly; it orchestrates these scripts.
 
 **Always check this directory before writing new code.** Reuse and improve
 existing scripts rather than duplicating logic. Register every script in
-`directive.md` under the Execution > Scripts table.
+`$ARGUMENTS.md` under the Execution > Scripts table.
 
 ## Contents
 
@@ -610,55 +621,11 @@ Scripts are added here as the directive is built out.
 - Include a usage comment block at the top of every script.
 - Scripts must be reliable, testable, and well-commented.
 - When a script is fixed via self-annealing, update both the script and the
-  Self-Anneal Log in `directive.md`.
+  Self-Anneal Log in `$ARGUMENTS.md`.
 - Environment variables and API keys come from `.env` — never hardcoded.
 - For scripts shared across directives, place them in `.claude/common/`.
 ```
 
-#### `directives/$ARGUMENTS.md`
-```markdown
-# $ARGUMENTS Directive
-
-> One-sentence description of what this directive is responsible for.
-
----
-
-## Purpose
-
-_Describe the goal and scope of this directive. What problem does it solve?
-What domain or workflow does it own?_
-
-## Owner
-
-_Who is responsible for this directive? (team, person, or role)_
-
-## Scope
-
-_What is in scope for this directive? What is explicitly out of scope?_
-
-## Deliverables
-
-_Where does the output of this directive live? Be explicit — local path, cloud service,
-or both. This must be defined before work begins._
-
-| Deliverable | Destination | Format | Notes |
-|---|---|---|---|
-| _name_ | _local path or cloud service URL_ | _file type / format_ | _access or sharing details_ |
-
-## Related Directives
-
-| Directive | Relationship |
-|---|---|
-| _name_ | _depends on / produces for / shares context with_ |
-
-## Resources
-
-- _Link to specs, designs, or external documentation_
-
-## Notes
-
-_Any other information relevant to understanding this directive._
-```
 
 Then update `directives/directory.md` contents table to add a row for `$ARGUMENTS.md`.
 
