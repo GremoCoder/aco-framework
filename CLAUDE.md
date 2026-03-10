@@ -37,17 +37,25 @@ project-root/
 │   ├── common/           ← Shared knowledge across all directives
 │   │   │   directory.md
 │   │   ├── analysis/     ← Analytical outputs & scratch work
+│   │   │       directory.md
 │   │   ├── knowledge/    ← Living documentation files (populated as needed)
+│   │   │       directory.md
 │   │   └── reports/      ← Generated reports output
+│   │           directory.md
 │   │
 │   ├── {name}-directive/ ← One per feature domain or workflow
 │   │   │   directive.md  ← Central intelligence: requirements, orchestration, context
 │   │   │   directory.md
 │   │   ├── .tmp/         ← Ephemeral working files
+│   │   │       directory.md
 │   │   ├── logs/         ← Execution & audit logs
+│   │   │       directory.md
 │   │   ├── references/   ← External docs, specs, links
+│   │   │       directory.md
 │   │   ├── reports/      ← Produced outputs & deliverables
+│   │   │       directory.md
 │   │   └── scripts/      ← Automation scripts for this directive
+│   │           directory.md
 │   │
 │   └── ...               ← Additional directives as needed
 │
@@ -63,7 +71,7 @@ project-root/
 - **Directives** are the core unit of work. Each directive lives under `.claude/{name}-directive/`.
 - **`directives/{name}.md`** is the directive definition file. It lives in the `directives/` folder at the project root and serves as the human-readable specification — purpose, scope, and ownership — for that directive. Created automatically by `/setup {name}`.
 - **`.claude/{name}-directive/directive.md`** is the central intelligence file for the directive workspace. It holds requirements, orchestration logic, execution steps, and running context. Always read it before working on a directive.
-- **`directory.md`** files are mandatory in every directory. They explain the purpose of that directory and its contents. Always keep them updated.
+- **`directory.md`** files are mandatory in **every** directory without exception — including leaf directories like `.tmp/`, `logs/`, `references/`, `reports/`, and `scripts/`. They explain the purpose of that directory, its expected contents, and usage guidelines. Always keep them updated. If one is missing, create it before proceeding.
 - **`session-context.md`** is used to persist important context between sessions. Update it when significant decisions are made.
 - **`common/knowledge/`** files are the source of truth for project-wide facts. The directory starts empty — add files here as your project knowledge grows. Reference them before making assumptions.
 - **Never delete** `directory.md` files — they are Claude's map of the project.

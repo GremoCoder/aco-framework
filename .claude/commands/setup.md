@@ -194,9 +194,61 @@ Contains living knowledge documents and analytical outputs.
 - Do not store directive-specific content here — use the relevant directive's directory instead.
 ```
 
-#### `.claude/common/analysis/` — create directory (empty, no files needed yet)
+#### `.claude/common/analysis/directory.md`
+```markdown
+# Directory: .claude/common/analysis/
 
-#### `.claude/common/reports/` — create directory (empty, no files needed yet)
+## Purpose
+
+Scratch space for analytical work, explorations, and intermediate findings
+that are shared across directives. Use this directory to capture investigative
+outputs before they are formalized into reports or knowledge files.
+
+## Contents
+
+This directory is intentionally empty at scaffold time.
+Files are created here organically during analytical work. Common file types:
+
+| File Pattern | Purpose |
+|---|---|
+| `{topic}-analysis.md` | Findings and notes from an investigation |
+| `{topic}-comparison.md` | Side-by-side comparison of options or approaches |
+| `{topic}-spike.md` | Time-boxed exploration of an unknown or risk area |
+
+## Guidelines
+
+- Files here are working documents, not final outputs. Move completed work to `reports/`.
+- Prefix file names with a date or topic for easy scanning.
+- Do not store directive-specific analysis here — use the relevant directive's workspace.
+```
+
+#### `.claude/common/reports/directory.md`
+```markdown
+# Directory: .claude/common/reports/
+
+## Purpose
+
+Stores finalized reports and summaries that are shared across directives.
+These are polished outputs intended for review, sharing, or archiving —
+distinct from the working documents in `analysis/`.
+
+## Contents
+
+This directory is intentionally empty at scaffold time.
+Reports are generated here over the course of the project. Common file types:
+
+| File Pattern | Purpose |
+|---|---|
+| `{topic}-report.md` | Formal written report on a topic or outcome |
+| `{topic}-summary.md` | Condensed summary of findings or decisions |
+| `{date}-status.md` | Periodic status or progress report |
+
+## Guidelines
+
+- Only place finalized content here. Use `analysis/` for work in progress.
+- Name files descriptively so their purpose is clear without opening them.
+- Do not store directive-specific reports here — use the relevant directive's `reports/` directory.
+```
 
 #### `.claude/common/knowledge/directory.md`
 ```markdown
@@ -229,7 +281,7 @@ Add `.md` files here as your project knowledge grows. Common files to create:
 - Update `change-log.md` whenever a significant decision is made.
 ```
 
-#### `.claude/common/knowledge/` — create directory (empty, no files needed yet)
+#### `.claude/common/knowledge/` — create directory (the `directory.md` above is its only file at scaffold time)
 
 ---
 
@@ -374,12 +426,147 @@ Update this section as work progresses.
 _Any other context Claude or team members should know._
 ```
 
-**Subdirectories to create:**
-- `.claude/$ARGUMENTS-directive/.tmp/`
-- `.claude/$ARGUMENTS-directive/logs/`
-- `.claude/$ARGUMENTS-directive/references/`
-- `.claude/$ARGUMENTS-directive/reports/`
-- `.claude/$ARGUMENTS-directive/scripts/`
+Also create the following subdirectories, each with a `directory.md`:
+
+#### `.claude/$ARGUMENTS-directive/.tmp/directory.md`
+```markdown
+# Directory: .claude/$ARGUMENTS-directive/.tmp/
+
+## Purpose
+
+Ephemeral working space for the $ARGUMENTS directive.
+Holds temporary files generated during execution that do not need to be committed
+or persisted after the task is complete.
+
+## Contents
+
+This directory is always transient. Files here may be deleted at any time.
+
+| File Pattern | Purpose |
+|---|---|
+| `*.tmp` | Temporary output from a script or tool |
+| `*.json` | Intermediate data payloads during processing |
+| `scratch-*.md` | Throwaway notes during active work |
+
+## Guidelines
+
+- Never commit files from this directory to source control (covered by `.gitignore`).
+- Clean up this directory regularly to avoid confusion.
+- If a file needs to persist, move it to `logs/`, `reports/`, or `references/`.
+```
+
+#### `.claude/$ARGUMENTS-directive/logs/directory.md`
+```markdown
+# Directory: .claude/$ARGUMENTS-directive/logs/
+
+## Purpose
+
+Execution logs and audit trail for the $ARGUMENTS directive.
+Captures a chronological record of runs, outcomes, errors, and significant events
+to support debugging, auditing, and continuity across sessions.
+
+## Contents
+
+This directory is intentionally empty at scaffold time.
+Log files are written here during execution.
+
+| File Pattern | Purpose |
+|---|---|
+| `{date}-run.log` | Output from a single execution run |
+| `{date}-error.log` | Error output captured during a failed run |
+| `{date}-audit.md` | Human-readable audit entry for a significant event |
+
+## Guidelines
+
+- Name log files with a date prefix for chronological sorting.
+- Do not edit log files after they are written.
+- Archive or prune old logs periodically to keep the directory manageable.
+```
+
+#### `.claude/$ARGUMENTS-directive/references/directory.md`
+```markdown
+# Directory: .claude/$ARGUMENTS-directive/references/
+
+## Purpose
+
+External and internal reference material scoped to the $ARGUMENTS directive.
+Stores specs, documentation excerpts, API contracts, design documents, and
+any other source material that informs how this directive is built or run.
+
+## Contents
+
+This directory is intentionally empty at scaffold time.
+Add reference material here as the directive is developed.
+
+| File Pattern | Purpose |
+|---|---|
+| `{name}-spec.md` | Specification or contract for a component or API |
+| `{name}-design.md` | Design document or architectural decision record |
+| `{name}-notes.md` | Notes from meetings, research, or external sources |
+
+## Guidelines
+
+- Keep references read-only — do not generate output into this directory.
+- Prefer linking to external sources; only copy content here when offline access is needed.
+- For project-wide references, use `.claude/common/knowledge/` instead.
+```
+
+#### `.claude/$ARGUMENTS-directive/reports/directory.md`
+```markdown
+# Directory: .claude/$ARGUMENTS-directive/reports/
+
+## Purpose
+
+Produced outputs and deliverables scoped to the $ARGUMENTS directive.
+This is where finalized reports, generated summaries, and exported artifacts
+from this directive are stored.
+
+## Contents
+
+This directory is intentionally empty at scaffold time.
+Reports are written here as the directive produces outputs.
+
+| File Pattern | Purpose |
+|---|---|
+| `{topic}-report.md` | Formal report generated by this directive |
+| `{topic}-summary.md` | Condensed summary of an outcome or finding |
+| `{date}-output.md` | Timestamped output from a specific execution |
+
+## Guidelines
+
+- Only place finalized content here. Use `.tmp/` for work in progress.
+- For reports shared across directives, copy to `.claude/common/reports/`.
+- Name files descriptively so their purpose is clear without opening them.
+```
+
+#### `.claude/$ARGUMENTS-directive/scripts/directory.md`
+```markdown
+# Directory: .claude/$ARGUMENTS-directive/scripts/
+
+## Purpose
+
+Automation scripts scoped exclusively to the $ARGUMENTS directive.
+Contains executable scripts used to run, test, or maintain this directive's
+workflows. Referenced by the `directive.md` Execution section.
+
+## Contents
+
+This directory is intentionally empty at scaffold time.
+Scripts are added here as the directive is built out.
+
+| File Pattern | Purpose |
+|---|---|
+| `run.sh` | Main entry point to execute the directive workflow |
+| `setup.sh` | One-time setup or dependency installation script |
+| `validate.sh` | Pre-run validation checks |
+| `cleanup.sh` | Post-run cleanup of temp files or resources |
+
+## Guidelines
+
+- Make all scripts executable (`chmod +x`).
+- Include a usage comment at the top of every script.
+- For scripts shared across directives, place them in a shared utility location.
+```
 
 #### `directives/$ARGUMENTS.md`
 ```markdown

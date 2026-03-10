@@ -108,11 +108,16 @@ STEP 4 — ADD YOUR FIRST DIRECTIVE (OPTIONAL)
                    ├── directive.md      (central intelligence — requirements,
                    │                      orchestration, execution, context)
                    ├── directory.md      (purpose & contents — pre-filled)
-                   ├── .tmp/             (ephemeral working files)
-                   ├── logs/             (execution & audit logs)
-                   ├── references/       (external specs and docs)
-                   ├── reports/          (produced outputs & deliverables)
-                   └── scripts/          (automation scripts)
+                   ├── .tmp/
+                   │   └── directory.md  (ephemeral working files)
+                   ├── logs/
+                   │   └── directory.md  (execution & audit logs)
+                   ├── references/
+                   │   └── directory.md  (external specs and docs)
+                   ├── reports/
+                   │   └── directory.md  (produced outputs & deliverables)
+                   └── scripts/
+                       └── directory.md  (automation scripts)
 
   You can run /setup <n> as many times as needed for different directives.
 
