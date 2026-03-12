@@ -296,25 +296,35 @@ Add `.md` files here as your project knowledge grows. Common files to create:
 
 ## Purpose
 
-Contains the directive definition file for each feature domain or workflow in this project.
-Each `.md` file here is the human-readable specification for a directive — its purpose,
-scope, and ownership.
+Contains the directive definition files for each feature domain or workflow in this project.
+Each directive has two files: a framework SOP (`{name}.md`) and a client overlay (`{name}.client.md`).
+Both are created automatically when you run `/setup {name}`.
 
-Each definition file corresponds to a `{name}-directive/` workspace under `.claude/`
-and is created automatically when you run `/setup {name}`.
+## Framework SOPs (exportable)
 
-## Contents
+| File | Domain |
+|------|--------|
+| _none yet_ | Added automatically by `/setup <name>` |
 
-| File | Directive | Purpose |
-|---|---|---|
-| _none yet_ | — | Definition files are added here automatically by `/setup <n>` |
+## Client Overlays (client repo only — never exported)
+
+| File | Contents |
+|------|---------|
+| _none yet_ | Added automatically by `/setup <name>` |
+
+> **Convention:** Each `{name}.client.md` is the client overlay for `{name}.md`. It contains
+> only client-specific context — no SOP steps or framework content. When the client environment
+> changes, update the `.client.md` file; the parent directive stays unchanged.
+> `.client.md` files are never exported to aco-framework.
 
 ## Guidelines
 
-- One file per directive — named `{name}.md` (e.g. `billing.md` for the billing directive).
-- This is the single source of truth: spec, requirements, orchestration, execution, deliverables, and self-anneal log — all in one file.
-- The corresponding workspace lives at `.claude/{name}-directive/` but does NOT contain a copy of this file.
-- Always edit the file here in `directives/`. Never duplicate it.
+- One framework SOP per directive — named `{name}.md`. Never add client-specific data here.
+- One client overlay per directive — named `{name}.client.md`. Populate before running the directive for the first time.
+- `.client.md` files hold client-specific context only — not SOP steps or framework logic.
+- Never export `.client.md` files. They belong to the client repo only.
+- The corresponding workspace lives at `.claude/{name}-directive/` — it does NOT contain a copy of the directive file.
+- Always edit files here in `directives/`. Never duplicate them.
 ```
 
 ---
@@ -370,6 +380,16 @@ Create the directive file at:
 # $ARGUMENTS Directive
 
 > One-sentence summary of what this directive does and why it exists.
+
+---
+
+## Client Overlay
+
+> **Before running:** Open `directives/$ARGUMENTS.client.md` and fill in client-specific context
+> (subscriptions, environment details, known constraints). Do not add client details to this
+> file — keep this directive framework-agnostic and exportable.
+>
+> See `directives/directory.md` for the full list of overlay fields.
 
 ---
 
@@ -473,6 +493,39 @@ Record of every break-fix cycle. Each entry makes this directive stronger.
 ### Notes
 
 _Any other context Claude or team members should know._
+```
+
+Also create the client overlay file at:
+
+#### `directives/$ARGUMENTS.client.md`
+```markdown
+# Client Overlay: $ARGUMENTS
+
+<!-- This file is CLIENT-SPECIFIC. Do not export to aco-framework. -->
+
+> **Parent directive:** `directives/$ARGUMENTS.md`
+> Update this file when client environment details change.
+
+---
+
+## Client Context
+
+> Fill in client-specific details for this directive before running it.
+> Keep this file focused on context only — no SOP steps or framework logic.
+
+### Environment
+
+_Subscription IDs, tenant names, regions, resource groups, or other environment identifiers
+this directive needs._
+
+### Known Constraints
+
+_API limits, timing notes, access restrictions, SKIPPED queries, or any environment-specific
+caveats discovered during past runs._
+
+### Notes
+
+_Anything else that is client-specific and should not live in the framework SOP._
 ```
 
 Also create the following subdirectories, each with a `directory.md`:
@@ -627,7 +680,9 @@ Scripts are added here as the directive is built out.
 ```
 
 
-Then update `directives/directory.md` contents table to add a row for `$ARGUMENTS.md`.
+Then update `directives/directory.md`:
+- Add a row for `$ARGUMENTS.md` in the **Framework SOPs** table
+- Add a row for `$ARGUMENTS.client.md` in the **Client Overlays** table
 
 ---
 
@@ -649,4 +704,6 @@ Next steps:
   2. Create knowledge files in .claude/common/knowledge/ as your project grows
      (e.g. conventions.md, environment-overview.md, dependencies.md).
   3. Run /setup <n> to add your first directive.
+  4. Open directives/<n>.client.md and fill in client-specific context before
+     running the directive for the first time.
 ```

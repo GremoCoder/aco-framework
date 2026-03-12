@@ -60,7 +60,8 @@ project-root/
 │
 └── directives/           ← Single source of truth for all directive files
         directory.md
-        {name}.md         ← e.g. billing.md — the complete directive file (spec + intelligence)
+        {name}.md         ← Framework SOP — exportable (spec + intelligence)
+        {name}.client.md  ← Client overlay — never exported (one per directive)
 ```
 
 ---
@@ -68,7 +69,8 @@ project-root/
 ## Key Conventions
 
 - **Directives** are the core unit of work. Each directive lives under `.claude/{name}-directive/`. They are protected — never overwrite without explicit user instruction.
-- **`directives/{name}.md`** is the single directive file. It is the complete source of truth for that directive — human-readable specification (purpose, scope, ownership, deliverables) AND operational intelligence (requirements, orchestration, execution steps, self-anneal log). Named after the directive itself — e.g. `billing.md` for the billing directive. One file, one location. Created automatically by `/setup {name}`.
+- **`directives/{name}.md`** is the framework SOP for that directive — the complete, exportable source of truth covering purpose, scope, orchestration, execution steps, and self-anneal log. Named after the directive itself (e.g. `billing.md`). Created automatically by `/setup {name}`. Never put client-specific data here.
+- **`directives/{name}.client.md`** is the client overlay for that directive. It holds all client-specific context (tenant IDs, subscription names, environment details, known constraints) that would otherwise pollute the framework SOP. It is never exported to aco-framework. When a `.client.md` exists alongside a directive, read it before running that directive. Created automatically by `/setup {name}`.
 - **`.claude/{name}-directive/`** is the operational workspace for the directive. It contains the subdirectories (`scripts/`, `logs/`, `reports/`, `references/`, `.tmp/`) and a `directory.md`. There is no duplicate of the directive file here — the single source of truth lives in `directives/`.
 - **`scripts/`** inside each directive workspace holds deterministic execution tools. Check here before writing new code. Scripts handle API calls, data processing, and file operations — Claude handles decisions.
 - **`directory.md`** files are mandatory in **every** directory without exception — including leaf directories. They explain purpose, expected contents, and usage guidelines. If one is missing, create it before proceeding.
@@ -163,8 +165,9 @@ This loop is what separates a brittle one-time automation from a reliable, impro
 2. Check `.claude/session-context.md` for carry-over notes from prior sessions.
 3. Review `.claude/common/knowledge/` files — check what exists and read what is relevant.
 4. If working within a directive, read its file in `directives/{name}.md` before taking any action. Pay attention to the Orchestration, Execution, and Deliverables sections.
-5. Check the directive's `scripts/` before writing any new code — reuse existing scripts.
-6. If `directory.md` is missing from any directory, create it before proceeding.
+5. If a `directives/{name}.client.md` exists for the directive you are working in, read it before taking any action — it contains client-specific context the SOP depends on.
+6. Check the directive's `scripts/` before writing any new code — reuse existing scripts.
+7. If `directory.md` is missing from any directory, create it before proceeding.
 
 ---
 

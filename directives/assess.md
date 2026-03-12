@@ -4,6 +4,16 @@
 
 ---
 
+## Client Overlay
+
+> **Before running:** Open `directives/assess.client.md` and fill in client-specific context
+> (subscriptions, environment details, known constraints). Do not add client details to this
+> file — keep this directive framework-agnostic and exportable.
+>
+> See `directives/directory.md` for the full list of overlay fields.
+
+---
+
 ## Layer 1 — Requirements (What)
 
 Describe what this directive must accomplish. List functional and non-functional
