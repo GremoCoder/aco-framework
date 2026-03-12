@@ -151,6 +151,7 @@ This loop is what separates a brittle one-time automation from a reliable, impro
 |---|---|
 | `/setup` | Scaffold the full ACO framework skeleton in the current project |
 | `/setup $DIRECTIVE_NAME` | Add a new named directive (e.g. `/setup billing`) |
+| `/clear-data $DIRECTIVE_NAME` | Delete generated data files (`.tmp/`, `logs/`, `reports/`) from a directive workspace |
 | `/analyze` | Summarize the full conversation context and save it to `session-context.md` |
 | `/reflect` | Analyze CLAUDE files and suggest improvements to instructions, commands, and config |
 

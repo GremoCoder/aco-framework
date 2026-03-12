@@ -23,3 +23,4 @@ and is created automatically when you run `/setup {name}`.
 - This is the single source of truth: spec, requirements, orchestration, execution, deliverables, and self-anneal log — all in one file.
 - The corresponding workspace lives at `.claude/{name}-directive/` but does NOT contain a copy of this file.
 - Always edit the file here in `directives/`. Never duplicate it.
+- To clear generated data (`.tmp/`, `logs/`, `reports/`) from a directive workspace, run `/clear-data {name}`.
