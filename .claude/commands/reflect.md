@@ -57,3 +57,25 @@ Present your final output in the following structure:
 </final_instructions>
 
 Remember, your goal is to enhance Claude's performance and consistency while maintaining the core functionality and purpose of the AI assistant. Be thorough in your analysis, clear in your explanations, and precise in your implementations.
+
+---
+
+### STEP — Update CHANGELOG.md
+
+After all approved fixes have been implemented, update `CHANGELOG.md` by adding each fix as a bullet under the `## [Unreleased]` → `### Changed` section (create the `### Changed` section if it doesn't exist).
+
+Each bullet must follow this format:
+```
+- <short description of the fix> ← Added by the /reflect command
+```
+
+Example:
+```markdown
+## [Unreleased]
+
+### Changed
+- Fixed stale `/clear` usage line in `clear-data.md` → `/clear-data` ← Added by the /reflect command
+- Added `directives/*.client.md` to `.gitignore` to prevent accidental commit of client data ← Added by the /reflect command
+```
+
+Only add entries for fixes that were actually implemented in this session. Do not add entries for suggestions that were rejected or skipped.
