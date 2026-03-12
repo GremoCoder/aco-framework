@@ -10,7 +10,7 @@ Each `.md` file in this directory becomes a `/command-name` available in Claude 
 | File | Command | Purpose |
 |---|---|---|
 | `analyze.md` | `/analyze` | Summarize conversation context and save to session-context.md |
-| `clear.md` | `/clear` | Delete generated data files from a directive's workspace |
+| `clear-data.md` | `/clear-data` | Delete generated data files from a directive's workspace |
 | `reflect.md` | `/reflect` | Analyze CLAUDE files and suggest improvements to instructions and config |
 | `setup.md` | `/setup` | Scaffold the ACO framework skeleton |
 
