@@ -59,6 +59,7 @@ All notable changes to this project will be documented here.
 .env
 credentials.json
 token.json
+directives/*.client.md
 ```
 
 **`.gitattributes`** — create with:

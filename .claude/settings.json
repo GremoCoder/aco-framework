@@ -1,3 +1,13 @@
 {
-  "hooks": {}
+  "hooks": {},
+  "permissions": {
+    "allow": [
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git commit:*)",
+      "Bash(git add:*)",
+      "Bash(git push:*)"
+    ]
+  }
 }

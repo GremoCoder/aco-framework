@@ -4,7 +4,7 @@ Delete all generated data files from a named directive's workspace, leaving the
 structure and authored content intact.
 
 **Usage:**
-- `/clear $ARGUMENTS` — clear data files from the `$ARGUMENTS` directive
+- `/clear-data $ARGUMENTS` — clear data files from the `$ARGUMENTS` directive
 
 ---
 
@@ -15,7 +15,7 @@ structure and authored content intact.
 If `$ARGUMENTS` is empty, print an error and stop:
 
 ```
-❌ Directive name required. Usage: /clear <name>
+❌ Directive name required. Usage: /clear-data <name>
 ```
 
 Set `DIRECTIVE = $ARGUMENTS` (trim whitespace).
@@ -108,6 +108,7 @@ Deleted:
 Preserved:
   - All directory.md files
   - directives/$DIRECTIVE.md (directive spec)
+  - directives/$DIRECTIVE.client.md (client overlay)
   - references/ (manual content)
   - scripts/ (authored scripts)
 ```

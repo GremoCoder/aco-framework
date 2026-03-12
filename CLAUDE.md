@@ -128,6 +128,7 @@ Local files are for processing only. If a deliverable lives in a cloud service, 
 - API keys, tokens, and secrets go in `.env` — never hardcoded in scripts
 - `.env` is always git-ignored
 - Credential files (e.g. `credentials.json`, `token.json`) are always git-ignored
+- `directives/*.client.md` files are always git-ignored — they contain client-sensitive context and must never be committed or exported to the framework repo
 - Document what variables are required in the directive's `Execution` section
 
 ---
