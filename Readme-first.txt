@@ -96,14 +96,19 @@ STEP 4 — ADD YOUR FIRST DIRECTIVE (OPTIONAL)
       /setup auth
       /setup reporting
 
-  This creates two things for each directive:
+  This creates three things for each directive:
 
-  1. A definition file at the project level:
+  1. A framework SOP at the project level (exportable):
 
                    directives/
-                   └── {name}.md         (human-readable spec — purpose, scope, owner)
+                   └── {name}.md         (framework SOP — purpose, scope, orchestration, execution)
 
-  2. A workspace under .claude/ (no directive file inside — it lives in directives/):
+  2. A client overlay alongside it (git-ignored, never exported):
+
+                   directives/
+                   └── {name}.client.md  (client context — subscriptions, env details, constraints)
+
+  3. A workspace under .claude/ (no directive file inside — it lives in directives/):
 
                    .claude/{name}-directive/
                    ├── directory.md      (workspace map — references directives/{name}.md)
@@ -135,7 +140,13 @@ STEP 5 — FILL IN YOUR PROJECT DETAILS
      grows — e.g. conventions.md, dependencies.md, environment-overview.md.
      Claude reads these files before making decisions, so add content here early.
 
-  3. Edit .claude/session-context.md
+  3. Fill in directives/{name}.client.md
+     Each directive gets a client overlay file. Open it and add the client-specific
+     context that directive needs — subscription IDs, environment details, known
+     constraints. Do this before running the directive for the first time.
+     (These files are git-ignored and never exported to the framework repo.)
+
+  4. Edit .claude/session-context.md
      Add any carry-over notes at the start of important sessions.
 
 
@@ -161,10 +172,15 @@ HOW IT WORKS — QUICK REFERENCE
                               presents suggestions and waits for your approval
                               before making any changes.
 
-  directives/{name}.md       The single directive file. Contains the complete
-                              spec, requirements, orchestration, execution steps,
-                              deliverables, and self-anneal log. One file, one
-                              location. Read it before working on a directive.
+  directives/{name}.md       Framework SOP for the directive. Contains the
+                              complete spec, orchestration, execution steps,
+                              deliverables, and self-anneal log. Exportable.
+                              Read it before working on a directive.
+
+  directives/{name}.client.md  Client overlay for the directive. Holds client-
+                              specific context (subscriptions, environment details,
+                              known constraints). Git-ignored — never exported.
+                              Fill in before running the directive for the first time.
 
   directory.md (everywhere)   Explains each folder's purpose to Claude.
                               Always keep these updated.

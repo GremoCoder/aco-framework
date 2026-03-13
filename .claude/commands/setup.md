@@ -156,6 +156,7 @@ Each `.md` file in this directory becomes a `/command-name` available in Claude 
 | File | Command | Purpose |
 |---|---|---|
 | `analyze.md` | `/analyze` | Summarize conversation context and save to session-context.md |
+| `clear-data.md` | `/clear-data` | Delete generated data files (`.tmp/`, `logs/`, `reports/`) from a directive workspace |
 | `reflect.md` | `/reflect` | Analyze CLAUDE files and suggest improvements to instructions and config |
 | `setup.md` | `/setup` | Scaffold the ACO framework skeleton |
 
@@ -344,16 +345,23 @@ Create the following structure under `.claude/$ARGUMENTS-directive/`:
 
 > Replace this with a brief description of what this directive is responsible for.
 
-## Directive File
+## Directive Files
 
-The directive file for this workspace lives at:
+The framework SOP for this workspace lives at:
 
 ```
 directives/$ARGUMENTS.md
 ```
 
-This is the single source of truth — read it before taking any action in this workspace.
-Do not create a copy of it here.
+The client overlay (client-specific context) lives at:
+
+```
+directives/$ARGUMENTS.client.md
+```
+
+Read both before taking any action in this workspace. The SOP defines what to do;
+the overlay provides the client environment details needed to do it.
+Do not create copies of either file here.
 
 ## Contents
 
@@ -704,7 +712,7 @@ Next steps:
   1. Edit README.md with your project description.
   2. Create knowledge files in .claude/common/knowledge/ as your project grows
      (e.g. conventions.md, environment-overview.md, dependencies.md).
-  3. Run /setup <n> to add your first directive.
+  3. Run /setup <n> to add your first directive (creates {n}.md and {n}.client.md).
   4. Open directives/<n>.client.md and fill in client-specific context before
      running the directive for the first time.
 ```
